@@ -1,0 +1,46 @@
+VERSION 1.0 CLASS
+BEGIN
+  MultiUse = -1  'True
+END
+Attribute VB_Name = "ThisWorkbook"
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = False
+Attribute VB_PredeclaredId = True
+Attribute VB_Exposed = True
+Private Sub workbook_open()
+
+Dim today As Date '今日の年月日の取得用
+Dim converToday As String 'todayを文字列に変換
+Dim thisMonth As Variant '申請月の取得用
+Dim Month1 As Variant '申請月の3ヶ月前の月取得用
+Dim Month2 As Variant '申請月の2ヶ月前の月取得用
+Dim Month3 As Variant '申請月の1ヶ月前の月取得用
+
+Dim outputToday As Range '判定年月日出力先セル
+Dim outputThisMonth As Range '申請月の出力先セル
+Dim outputMonth1 As Range 'Month1出力先セル
+Dim outputMonth2 As Range 'Month2出力先セル
+Dim outputMonth3 As Range 'Month3出力先セル
+
+'判定年月日の取得処理
+
+today = Date '本日の年月日を取得
+convertToday = Format(today, "yyyy年mm月dd日") '本日の年月日を文字列に変換
+thisMonth = Month(today) '申請月の取得
+Month1 = Month(DateSerial(Year(today), Month(today) - 2, 0)) '申請月の3ヶ月前の月を取得
+Month2 = Month(DateSerial(Year(today), Month(today) - 1, 0)) '申請月の2ヶ月前の月を取得
+Month3 = Month(DateSerial(Year(today), Month(today), 0)) '申請月の1ヶ月前の月を取得
+
+Set outputToday = Range("N1")
+Set outputThisMonth = Range("C11")
+Set outputMonth1 = Range("C29")
+Set outputMonth2 = Range("C30")
+Set outputMonth3 = Range("C31")
+
+outputToday.Value = convertToday
+outputThisMonth.Value = thisMonth
+outputMonth1.Value = Month1
+outputMonth2.Value = Month2
+outputMonth3.Value = Month3
+
+End Sub
